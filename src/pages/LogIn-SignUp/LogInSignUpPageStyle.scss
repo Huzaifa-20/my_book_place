@@ -1,0 +1,23 @@
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  .heading {
+    // padding-bottom: 2rem;
+    color: #af4159;
+    font-family: 'Fredoka One';
+    letter-spacing: 0.05rem;
+    font-size: 3.5rem;
+  }
+
+  .log-in-sign-up {
+    display: flex;
+    align-items: center;
+    // padding-bottom: 5rem;
+  }
+}

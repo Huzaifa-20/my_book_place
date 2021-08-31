@@ -1,0 +1,20 @@
+.sign-up {
+  background: #af4159;
+  border-radius: 25px;
+  padding: 3rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .card-heading {
+    padding-bottom: 1rem;
+    color: white;
+    font-family: 'Fredoka One';
+    letter-spacing: 0.05rem;
+    font-size: 2.5rem;
+  }
+
+  .sign-up-form {
+    width: 100%;
+  }
+}
