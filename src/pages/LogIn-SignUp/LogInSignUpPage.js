@@ -55,37 +55,54 @@ const LogInSignUpPage = () => {
 
   return (
     <div className="background">
-      <h1 className="heading">My Book Place</h1>
+      <h1
+        className={`${
+          showLogInCard || showSignUpCard ? 'move-heading-top' : ''
+        } heading`}
+      >
+        My Book Place
+      </h1>
       <div className="log-in-sign-up">
-        <CustomButton
-          onClick={() => {
-            clickHandler('LogIn');
-          }}
-          type="button"
-          selected={logInSelected}
+        <div
+          className={`${
+            showLogInCard || showSignUpCard ? 'move-btn-left' : ''
+          } log-in-btn-container`}
         >
-          Log In
-        </CustomButton>
-        <div className={`${showLogInCard ? 'show' : ''} logInContainer`}>
-          <LogInCard />
+          <CustomButton
+            onClick={() => {
+              clickHandler('LogIn');
+            }}
+            type="button"
+            selected={logInSelected}
+          >
+            Log In
+          </CustomButton>
         </div>
-        <div className={`${showSignUpCard ? 'show' : ''} signUpContainer`}>
-          <SignUpCard />
+
+        <div className="cardContainer">
+          <div className={`${showLogInCard ? 'show' : ''} logInContainer`}>
+            <LogInCard />
+          </div>
+          <div className={`${showSignUpCard ? 'show' : ''} signUpContainer`}>
+            <SignUpCard />
+          </div>
         </div>
 
-        {/* {showLogInCard ? <LogInCard /> : <div />}
-
-        {showSignUpCard ? <SignUpCard /> : <div />} */}
-
-        <CustomButton
-          onClick={() => {
-            clickHandler('SignUp');
-          }}
-          type="button"
-          selected={signUpSelected}
+        <div
+          className={`${
+            showLogInCard || showSignUpCard ? 'move-btn-right' : ''
+          } sign-up-btn-container`}
         >
-          Sign Up
-        </CustomButton>
+          <CustomButton
+            onClick={() => {
+              clickHandler('SignUp');
+            }}
+            type="button"
+            selected={signUpSelected}
+          >
+            Sign Up
+          </CustomButton>
+        </div>
       </div>
     </div>
   );

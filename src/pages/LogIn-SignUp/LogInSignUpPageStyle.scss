@@ -1,6 +1,7 @@
 .background {
   width: 100vw;
   height: 100vh;
+  background: whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,35 +13,61 @@
     font-family: 'Fredoka One';
     letter-spacing: 0.05rem;
     font-size: 3.5rem;
+    transform: translateY(200px);
+    transition: all 0.5s;
+
+    &.move-heading-top {
+      transform: translateY(0px);
+    }
   }
 
   .log-in-sign-up {
     display: flex;
     align-items: center;
 
-    .logInContainer {
-      visibility: hidden;
-      display: none;
-      opacity: 0;
-      transition: display 1s visibility 1s, opacity 1s;
+    .log-in-btn-container {
+      transform: translateX(250px);
+      transition: all 0.5s;
 
-      &.show {
-        visibility: visible;
-        opacity: 1;
-        display: flex;
+      &.move-btn-left {
+        transform: translateX(0px);
       }
     }
 
-    .signUpContainer {
-      visibility: hidden;
-      display: none;
-      opacity: 0;
-      transition: display 1s visibility 1s, opacity 1s;
+    .sign-up-btn-container {
+      transform: translateX(-250px);
+      transition: all 0.5s;
 
-      &.show {
-        visibility: visible;
-        opacity: 1;
-        display: flex;
+      &.move-btn-right {
+        transform: translateX(0px);
+      }
+    }
+
+    .cardContainer {
+      flex-direction: column;
+      align-items: center;
+
+      .logInContainer {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.5s, opacity 0.5s;
+        position: absolute;
+
+        &.show {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+
+      .signUpContainer {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.5s, opacity 0.5s;
+
+        &.show {
+          visibility: visible;
+          opacity: 1;
+        }
       }
     }
   }
