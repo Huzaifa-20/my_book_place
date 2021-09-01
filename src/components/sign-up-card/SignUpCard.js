@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { auth } from '../../firebase/firebase.utils';
 
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
@@ -10,13 +11,28 @@ const SignUpCard = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setDisplayName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+
+      // createUserProfileDocument(user, { displayName });
+
+      setDisplayName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleChange = (e) => {

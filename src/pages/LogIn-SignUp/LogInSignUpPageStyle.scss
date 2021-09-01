@@ -8,7 +8,6 @@
   overflow: hidden;
 
   .heading {
-    // padding-bottom: 2rem;
     color: #af4159;
     font-family: 'Fredoka One';
     letter-spacing: 0.05rem;
@@ -18,6 +17,31 @@
   .log-in-sign-up {
     display: flex;
     align-items: center;
-    // padding-bottom: 5rem;
+
+    .logInContainer {
+      visibility: hidden;
+      display: none;
+      opacity: 0;
+      transition: display 1s visibility 1s, opacity 1s;
+
+      &.show {
+        visibility: visible;
+        opacity: 1;
+        display: flex;
+      }
+    }
+
+    .signUpContainer {
+      visibility: hidden;
+      display: none;
+      opacity: 0;
+      transition: display 1s visibility 1s, opacity 1s;
+
+      &.show {
+        visibility: visible;
+        opacity: 1;
+        display: flex;
+      }
+    }
   }
 }

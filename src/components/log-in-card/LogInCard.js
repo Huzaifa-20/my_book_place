@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
@@ -8,10 +9,16 @@ const LogInCard = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setEmail('');
-    setPassword('');
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (e) => {
@@ -42,7 +49,9 @@ const LogInCard = () => {
       </form>
       <CustomButton onClick={handleSubmit}>Sign in</CustomButton>
       <p>OR</p>
-      <CustomButton>Sign in with Google</CustomButton>
+      <CustomButton onClick={signInWithGoogle}>
+        Sign in with Google
+      </CustomButton>
     </div>
   );
 };

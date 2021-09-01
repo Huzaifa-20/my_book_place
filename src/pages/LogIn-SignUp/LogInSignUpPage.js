@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTransition } from 'react-spring';
 
 import CustomButton from '../../components/custom-button/CustomButton';
 import LogInCard from '../../components/log-in-card/LogInCard';
@@ -67,8 +66,16 @@ const LogInSignUpPage = () => {
         >
           Log In
         </CustomButton>
-        {showLogInCard ? <LogInCard /> : <div />}
-        {showSignUpCard ? <SignUpCard /> : <div />}
+        <div className={`${showLogInCard ? 'show' : ''} logInContainer`}>
+          <LogInCard />
+        </div>
+        <div className={`${showSignUpCard ? 'show' : ''} signUpContainer`}>
+          <SignUpCard />
+        </div>
+
+        {/* {showLogInCard ? <LogInCard /> : <div />}
+
+        {showSignUpCard ? <SignUpCard /> : <div />} */}
 
         <CustomButton
           onClick={() => {
