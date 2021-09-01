@@ -1,3 +1,5 @@
+@import '../../styles/Colors.scss';
+
 .custom-button {
   min-width: 150px;
   width: fit-content;
@@ -6,9 +8,9 @@
   margin: 0 2rem;
   font-size: 1.5rem;
   background-color: white;
-  color: #af4159;
+  color: $colorPrimary;
   font-family: 'Comfortaa';
-  border: 0.1rem solid #af4159;
+  border: 0.1rem solid $colorPrimary;
   border-radius: 1rem;
   cursor: pointer;
   display: flex;
@@ -23,7 +25,7 @@
   &.selected {
     transform: scale(1.25);
     font-weight: bold;
-    background-color: #af4159;
+    background-color: $colorPrimary;
     color: white;
     border: none;
   }

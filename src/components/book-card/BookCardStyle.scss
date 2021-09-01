@@ -1,0 +1,66 @@
+@import '../../styles/Colors.scss';
+
+.book-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15rem;
+  width: 30rem;
+  min-height: min-content;
+  min-width: min-content;
+  background: steelblue;
+  padding: 1rem 2rem;
+  border-radius: 0 1.3rem 1.3rem 0;
+
+  .fab {
+    height: 3rem;
+    width: 3rem;
+    color: $colorPrimary;
+    align-self: flex-end;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .book-form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+    .input-field {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 0.5rem;
+
+      input {
+        height: 2rem;
+        border-radius: 0.3rem;
+        border: none;
+        outline: none;
+        margin-left: 20px;
+        font-size: 0.9rem;
+
+        &:focus {
+          border: solid 1.5px $colorPrimary;
+        }
+      }
+
+      .select-author {
+        height: 2rem;
+        width: 55%;
+        border-radius: 0.3rem;
+        margin-left: 20px;
+        background: white;
+        font-size: 0.9rem;
+        outline: none;
+
+        &:focus {
+          border: solid 1.5px $colorPrimary;
+        }
+      }
+    }
+  }
+}

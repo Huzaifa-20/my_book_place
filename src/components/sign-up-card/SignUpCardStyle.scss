@@ -1,5 +1,7 @@
+@import '../../styles/Colors.scss';
+
 .sign-up {
-  background: #af4159;
+  background: $colorPrimary;
   border-radius: 25px;
   padding: 3rem 5rem;
   display: flex;

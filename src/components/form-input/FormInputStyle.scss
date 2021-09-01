@@ -1,10 +1,9 @@
-$sub-color: #af4159; //later turn to white
-$main-color: black;
+@import '../../styles/Colors.scss';
 
 @mixin shrinkLabel {
   top: -20px;
   font-size: 15px;
-  color: $main-color;
+  color: black;
 }
 
 .group {
@@ -13,7 +12,7 @@ $main-color: black;
 
   .form-input {
     background-color: white;
-    color: $sub-color;
+    color: $colorPrimary;
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
@@ -37,7 +36,7 @@ $main-color: black;
   }
 
   .form-input-label {
-    color: $sub-color;
+    color: $colorPrimary;
     font-size: 16px;
     font-weight: normal;
     position: absolute;

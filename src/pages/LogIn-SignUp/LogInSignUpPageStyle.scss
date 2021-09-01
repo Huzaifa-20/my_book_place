@@ -1,7 +1,9 @@
+@import '../../styles/Colors.scss';
+
 .background {
   width: 100vw;
   height: 100vh;
-  background: whitesmoke;
+  background: $colorSecondary;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +11,7 @@
   overflow: hidden;
 
   .heading {
-    color: #af4159;
+    color: $colorPrimary;
     font-family: 'Fredoka One';
     letter-spacing: 0.05rem;
     font-size: 3.5rem;
