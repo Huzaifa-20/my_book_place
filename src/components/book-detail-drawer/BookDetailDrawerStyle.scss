@@ -1,0 +1,31 @@
+@import '../../styles/Colors.scss';
+
+.outter-container {
+  display: flex;
+  justify-content: flex-end;
+
+  .drawer {
+    padding: 5rem 10rem 2rem 2rem;
+    background: $colorPrimary;
+    color: $colorSecondary;
+    height: 100vh;
+    width: fit-content;
+
+    .book-genre {
+      margin-top: 2rem;
+    }
+
+    .book-author {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .all-books {
+      margin-top: 2rem;
+
+      li {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
