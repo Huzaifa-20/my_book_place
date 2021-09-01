@@ -35,6 +35,10 @@
       align-items: center;
       margin-top: 0.5rem;
 
+      label {
+        font-weight: bolder;
+      }
+
       input {
         height: 2rem;
         border-radius: 0.3rem;
@@ -42,6 +46,7 @@
         outline: none;
         margin-left: 20px;
         font-size: 0.9rem;
+        background: $colorSecondary;
 
         &:focus {
           border: solid 1.5px $colorPrimary;

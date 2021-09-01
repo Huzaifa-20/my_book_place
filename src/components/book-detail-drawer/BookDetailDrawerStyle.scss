@@ -1,31 +1,42 @@
 @import '../../styles/Colors.scss';
 
-.outter-container {
-  display: flex;
-  justify-content: flex-end;
+.drawer {
+  padding: 5rem 10rem 2rem 2rem;
+  background: $colorPrimary;
+  color: white;
+  height: 100vh;
+  width: 30vw;
 
-  .drawer {
-    padding: 5rem 10rem 2rem 2rem;
-    background: $colorPrimary;
-    color: $colorSecondary;
-    height: 100vh;
-    width: fit-content;
+  .close-drawer {
+    display: flex;
+    justify-content: flex-end;
 
-    .book-genre {
-      margin-top: 2rem;
-    }
+    .close-button {
+      height: 3rem;
+      width: 3rem;
+      transform: translate(5rem, -2rem);
+      transition: transform 0.2s;
 
-    .book-author {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .all-books {
-      margin-top: 2rem;
-
-      li {
-        margin-top: 1rem;
+      &:hover {
+        transform: translate(5rem, -2rem) scale(1.2);
       }
+    }
+  }
+
+  .book-genre {
+    margin-top: 2rem;
+  }
+
+  .book-author {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .all-books {
+    margin-top: 2rem;
+
+    li {
+      margin-top: 1rem;
     }
   }
 }
