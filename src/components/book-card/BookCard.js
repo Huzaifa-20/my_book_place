@@ -6,10 +6,17 @@ import './BookCardStyle.scss';
 const BookCard = () => {
   const [bookName, setBookName] = useState('');
   const [bookGenre, setBookGenre] = useState('');
+  const [authorName, setAuthorName] = useState('');
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    name === 'bookName' ? setBookName(value) : setBookGenre(value);
+    if (name === 'bookName') {
+      setBookName(value);
+    } else if (name === 'bookGenre') {
+      setBookGenre(value);
+    } else {
+      setAuthorName(value);
+    }
   };
 
   return (
@@ -36,17 +43,30 @@ const BookCard = () => {
           />
         </div>
 
-        <div className="input-field">
+        <div className="author-input-field">
           <label className="input-label">Author:</label>
-          <select className="select-author" name="author">
-            <option disabled selected>
-              --Select--
-            </option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="fiat">Fiat</option>
-            <option value="audi">Audi</option>
-          </select>
+          <div className="author-field">
+            <input
+              type="text"
+              name="authorName"
+              value={authorName}
+              onChange={handleChange}
+              placeholder="-Add New Author-"
+            />
+            <select
+              className="select-author"
+              name="author"
+              onChange={handleChange}
+            >
+              <option disabled selected>
+                -Select Existing Author-
+              </option>
+              <option value="Volvo">Volvo</option>
+              <option value="Saab">Saab</option>
+              <option value="Fiat">Fiat</option>
+              <option value="Audi">Audi</option>
+            </select>
+          </div>
         </div>
       </form>
     </div>
