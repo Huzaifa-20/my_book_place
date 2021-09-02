@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { animated, useSpring } from 'react-spring';
 import { FiLogOut } from 'react-icons/fi';
+import { auth } from '../../firebase/firebase.utils';
 
 import BookDetailDrawer from '../../components/book-detail-drawer/BookDetailDrawer';
 import BookCard from '../../components/book-card/BookCard';
@@ -23,8 +23,6 @@ const HomePage = () => {
     setLoggedOut(true);
   };
 
-  const animation = useSpring(bookSelected ? { opacity: 1 } : { opacity: 0 });
-
   return (
     <div className="outter-container">
       <div className="main-container">
@@ -34,7 +32,12 @@ const HomePage = () => {
               <h1 className="user-title">Ninjas Reading List</h1>
             </div>
             <div className="log-out-container">
-              <FiLogOut className="log-out" />
+              <FiLogOut
+                className="log-out"
+                onClick={() => {
+                  auth.signOut();
+                }}
+              />
               <p className="log-out-text">Log Out</p>
             </div>
           </div>

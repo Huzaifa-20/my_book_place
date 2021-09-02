@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
@@ -24,7 +24,7 @@ const SignUpCard = () => {
         password,
       );
 
-      // createUserProfileDocument(user, { displayName });
+      createUserProfileDocument(user, { displayName });
 
       setDisplayName('');
       setEmail('');
@@ -68,7 +68,7 @@ const SignUpCard = () => {
           name="password"
           value={password}
           handleChange={handleChange}
-          label="Paasword"
+          label="Pasword"
           required
         />
         <FormInput
@@ -76,7 +76,7 @@ const SignUpCard = () => {
           name="confirmPassword"
           value={confirmPassword}
           handleChange={handleChange}
-          label="Confirm Paasword"
+          label="Confirm Pasword"
           required
         />
       </form>
