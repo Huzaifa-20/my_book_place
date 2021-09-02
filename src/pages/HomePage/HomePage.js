@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { animated, useSpring } from 'react-spring';
+import { FiLogOut } from 'react-icons/fi';
 
 import BookDetailDrawer from '../../components/book-detail-drawer/BookDetailDrawer';
 import BookCard from '../../components/book-card/BookCard';
@@ -8,6 +9,7 @@ import './HomePageStyle.scss';
 
 const HomePage = () => {
   const [bookSelected, setBookSelected] = useState(false);
+  const [loggedOut, setLoggedOut] = useState(false);
 
   const bookSelectHandler = () => {
     setBookSelected(!bookSelected);
@@ -17,14 +19,24 @@ const HomePage = () => {
     setBookSelected(false);
   };
 
+  const logOutHandler = () => {
+    setLoggedOut(true);
+  };
+
   const animation = useSpring(bookSelected ? { opacity: 1 } : { opacity: 0 });
 
   return (
     <div className="outter-container">
       <div className="main-container">
         <div className="upper-half">
-          <div className="main-heading">
-            <h1 className="user-title">Ninjas Reading List</h1>
+          <div className="header-bar">
+            <div className="user-title-container">
+              <h1 className="user-title">Ninjas Reading List</h1>
+            </div>
+            <div className="log-out-container">
+              <FiLogOut className="log-out" />
+              <p className="log-out-text">Log Out</p>
+            </div>
           </div>
           <div className="books-container">
             <div className="book-button">

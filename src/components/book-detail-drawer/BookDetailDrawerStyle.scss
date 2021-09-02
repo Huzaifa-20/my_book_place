@@ -1,25 +1,49 @@
 @import '../../styles/Colors.scss';
 
 .drawer {
-  padding: 5rem 10rem 2rem 2rem;
+  padding: 1.5rem 2rem;
   box-shadow: -5px 0 8px #888888;
   background: $colorPrimary;
   color: white;
   height: 100vh;
   width: 30vw;
 
-  .close-drawer {
+  .drawer-icons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .delete-book {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-right: 2rem;
+      transition: transform 0.2s;
+
+      .delete-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+      .delete-text {
+        font-size: 0.8rem;
+        text-align: center;
+        margin: 0.5rem 0 0 0;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
 
     .close-button {
-      height: 3rem;
-      width: 3rem;
-      transform: translate(5rem, -2rem);
+      height: 2.5rem;
+      width: 2.5rem;
       transition: transform 0.2s;
 
       &:hover {
-        transform: translate(5rem, -2rem) scale(1.2);
+        transform: scale(1.2);
       }
     }
   }
