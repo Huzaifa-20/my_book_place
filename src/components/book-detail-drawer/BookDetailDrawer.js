@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FaTimesCircle, FaTrash } from 'react-icons/fa';
 
 import './BookDetailDrawerStyle.scss';

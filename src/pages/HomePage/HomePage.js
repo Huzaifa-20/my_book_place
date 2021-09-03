@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiLogOut } from 'react-icons/fi';
-import { auth } from '../../firebase/firebase.utils';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  firestore,
+  auth,
+  convertBooksSnapshotToMap,
+} from '../../firebase/firebase.utils';
+import { setUserBooks, setAllBooks } from '../../redux/book/bookActions';
 
 import BookDetailDrawer from '../../components/book-detail-drawer/BookDetailDrawer';
 import BookCard from '../../components/book-card/BookCard';
@@ -9,7 +15,38 @@ import './HomePageStyle.scss';
 
 const HomePage = () => {
   const [bookSelected, setBookSelected] = useState(false);
-  const [loggedOut, setLoggedOut] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userBooks = useSelector((state) => state.books.userBooks);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  useEffect(() => {
+    const updateUserBooks = (books) => dispatch(setUserBooks(books));
+    const updateAllBooks = (books) => dispatch(setAllBooks(books));
+
+    let unsubAllBooksSnapshot = null;
+    const booksCollectionRef = firestore.collection('books');
+
+    unsubAllBooksSnapshot = booksCollectionRef.onSnapshot(async (snapshot) => {
+      const booksMap = convertBooksSnapshotToMap(snapshot);
+      updateAllBooks(booksMap);
+
+      if (currentUser.books) {
+        const arr = [];
+        booksMap.map((book) => {
+          if (currentUser && currentUser.books.includes(book.id)) {
+            arr.push(book);
+          }
+          return arr;
+        });
+        updateUserBooks(arr);
+      }
+    });
+    return () => {
+      unsubAllBooksSnapshot();
+    };
+  }, [currentUser]);
 
   const bookSelectHandler = () => {
     setBookSelected(!bookSelected);
@@ -17,10 +54,6 @@ const HomePage = () => {
 
   const closeDrawer = () => {
     setBookSelected(false);
-  };
-
-  const logOutHandler = () => {
-    setLoggedOut(true);
   };
 
   return (
@@ -42,35 +75,17 @@ const HomePage = () => {
             </div>
           </div>
           <div className="books-container">
-            <div className="book-button">
-              <CustomButton selected={bookSelected} onClick={bookSelectHandler}>
-                The Long Earth
-              </CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Color of Magic</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Light Fantastic</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Final Empire</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Hero of Ages</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Name of the Wind</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>Hogfather</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>Thud</CustomButton>
-            </div>
-            <div className="book-button">
-              <CustomButton selected={false}>The Long Universe</CustomButton>
-            </div>
+            {userBooks.map(({ id, name }) => (
+              <div className="book-button">
+                <CustomButton
+                  key={id}
+                  selected={bookSelected}
+                  onClick={bookSelectHandler}
+                >
+                  {name}
+                </CustomButton>
+              </div>
+            ))}
           </div>
         </div>
         <BookCard />

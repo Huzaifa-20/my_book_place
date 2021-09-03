@@ -17,6 +17,8 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+export const createBookDocument = async () => {};
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -27,12 +29,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+    const books = [];
 
     try {
       await userRef.set({
+        id: userAuth.uid,
         displayName,
         email,
         createdAt,
+        books,
+
         ...additionalData,
       });
     } catch (error) {
@@ -40,6 +46,37 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+};
+
+export const convertBooksSnapshotToMap = (books) => {
+  const transformedBooks = books.docs.map((doc) => {
+    const {
+      name, genre, author, id,
+    } = doc.data();
+
+    return {
+      id,
+      name,
+      genre,
+      author,
+    };
+  });
+  return transformedBooks;
+};
+
+export const addBooksToFirestore = async (userId, bookToAdd) => {
+  const booksCollectionRef = firestore.collection('books');
+
+  const newBookDocRef = booksCollectionRef.doc();
+  await newBookDocRef.set({ id: newBookDocRef.id, ...bookToAdd });
+
+  await firestore
+    .doc(`users/${userId}`)
+    .update({
+      books: firebase.firestore.FieldValue.arrayUnion(newBookDocRef.id),
+    });
+
+  // CHECK IF AUTHOR ALSO NEEDS TO BE ADDED TO FIRESTORE//
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();

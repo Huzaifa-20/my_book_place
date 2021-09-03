@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { addBooksToFirestore } from '../../firebase/firebase.utils';
 
 import './BookCardStyle.scss';
 
 const BookCard = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const [bookName, setBookName] = useState('');
   const [bookGenre, setBookGenre] = useState('');
-  const [authorName, setAuthorName] = useState('');
+  const [bookAuthor, setBookAuthor] = useState('');
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -15,14 +19,33 @@ const BookCard = () => {
     } else if (name === 'bookGenre') {
       setBookGenre(value);
     } else {
-      setAuthorName(value);
+      setBookAuthor(value);
     }
+  };
+
+  const emptyFields = () => {
+    if (bookName === '' || bookGenre === '' || bookAuthor === '') return true;
+    return false;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (emptyFields()) return;
+
+    setBookName('');
+    setBookGenre('');
+    setBookAuthor('');
+    addBooksToFirestore(currentUser.id, {
+      name: bookName,
+      genre: bookGenre,
+      author: bookAuthor,
+    });
   };
 
   return (
     <div className="book-card">
-      <FaPlusCircle className="fab" />
-      <form className="book-form">
+      <FaPlusCircle className="fab" onClick={handleSubmit} />
+      <form className="book-form" onSubmit={handleSubmit}>
         <div className="input-field">
           <label>Book Name:</label>
           <input
@@ -49,7 +72,7 @@ const BookCard = () => {
             <input
               type="text"
               name="authorName"
-              value={authorName}
+              value={bookAuthor}
               onChange={handleChange}
               placeholder="-Add New Author-"
             />
