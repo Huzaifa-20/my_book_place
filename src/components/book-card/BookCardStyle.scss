@@ -1,8 +1,8 @@
 @import '../../styles/Colors.scss';
+@import '../../breakpoints/breakpoints.scss';
 
 .book-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 15rem;
   width: 30rem;
@@ -12,6 +12,11 @@
   padding: 1rem 2rem;
   border-radius: 0 1.3rem 0 0;
   box-shadow: 10px -5px 8px #888888;
+
+  @include media('>phone', '<=715px') {
+    height: 12rem;
+    width: 25rem;
+  }
 
   .fab {
     height: 2.5rem;
@@ -23,6 +28,11 @@
 
     &:hover {
       transform: scale(1.2);
+    }
+
+    @include media('>phone', '<=715px') {
+      height: 2rem;
+      width: 2rem;
     }
   }
 
@@ -39,6 +49,10 @@
 
       label {
         font-weight: bolder;
+
+        @include media('>phone', '<=715px') {
+          font-size: 0.7rem;
+        }
       }
 
       input {
@@ -53,6 +67,11 @@
         &:focus {
           border: solid 1.5px $colorPrimary;
         }
+
+        @include media('>phone', '<=715px') {
+          height: 1.5rem;
+          font-size: 0.8rem;
+        }
       }
     }
 
@@ -64,6 +83,10 @@
 
       label {
         font-weight: bolder;
+
+        @include media('>phone', '<=715px') {
+          font-size: 0.7rem;
+        }
       }
 
       .author-field {
@@ -82,6 +105,11 @@
           &:focus {
             border: solid 1.5px $colorPrimary;
           }
+
+          @include media('>phone', '<=715px') {
+            height: 1.5rem;
+            font-size: 0.7rem;
+          }
         }
 
         .select-author {
@@ -97,6 +125,12 @@
 
           &:focus {
             border: solid 1.5px $colorPrimary;
+          }
+
+          @include media('>phone', '<=715px') {
+            height: 1.5rem;
+            margin: 5px 0 0 20px;
+            font-size: 0.7rem;
           }
         }
       }

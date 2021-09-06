@@ -76,19 +76,26 @@ export const addBooksToFirestore = async (userId, { name, author, genre }) => {
   await firestore.doc(`users/${userId}`).update({
     books: firebase.firestore.FieldValue.arrayUnion(newBookDocRef.id),
   });
+};
 
-  // CHECK IF AUTHOR ALSO NEEDS TO BE ADDED TO FIRESTORE//
-  // if (newAuthor) {
-  //   const authorsCollectionRef = firestore.collection('authors');
+export const deleteBookFromFirestore = async (bookId, userId) => {
+  console.log(`Deleting: ${bookId}`);
+  firestore
+    .collection('books')
+    .where('id', '==', bookId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.docs[0].ref.delete();
+    });
 
-  //   const newAuthorDocRef = authorsCollectionRef.doc();
-  //   await newAuthorDocRef.set({
-  //     id: newAuthorDocRef.id, name: author, books: [newBookDocRef.id],
-  //   });
-  // }
-  // else {
-
-  // }
+  await firestore
+    .doc(`users/${userId}`)
+    .update({
+      books: firebase.firestore.FieldValue.arrayRemove(bookId),
+    })
+    .catch((error) => {
+      console.error('Error removing document: ', error);
+    });
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();

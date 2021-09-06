@@ -1,4 +1,5 @@
 @import '../../styles/Colors.scss';
+@import '../../breakpoints/breakpoints.scss';
 
 .drawer {
   padding: 1.5rem 2rem;
@@ -7,6 +8,10 @@
   color: white;
   height: 100vh;
   width: 30vw;
+
+  @include media('>phone', '<=715px') {
+    padding: 1.5rem 1rem;
+  }
 
   .drawer-icons {
     display: flex;
@@ -25,12 +30,22 @@
       .delete-icon {
         height: 1.5rem;
         width: 1.5rem;
+
+        @include media('>phone', '<=715px') {
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-right: 0.8rem;
+        }
       }
 
       .delete-text {
         font-size: 0.8rem;
         text-align: center;
         margin: 0.5rem 0 0 0;
+
+        @include media('<=715px') {
+          font-size: 0.7rem;
+        }
       }
 
       &:hover {
@@ -47,16 +62,35 @@
       &:hover {
         transform: scale(1.2);
       }
+
+      @include media('>phone', '<=715px') {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+  }
+
+  .book-title {
+    @include media('>phone', '<=715px') {
+      font-size: 1.5rem;
     }
   }
 
   .book-genre {
     margin-top: 2rem;
+
+    @include media('>phone', '<=715px') {
+      font-size: 1rem;
+    }
   }
 
   .book-author {
     margin-top: 2rem;
     margin-bottom: 2rem;
+
+    @include media('>phone', '<=715px') {
+      font-size: 1rem;
+    }
   }
 
   .all-books {
@@ -64,6 +98,10 @@
 
     li {
       margin-top: 1rem;
+
+      @include media('>phone', '<=715px') {
+        font-size: 0.9rem;
+      }
     }
   }
 }

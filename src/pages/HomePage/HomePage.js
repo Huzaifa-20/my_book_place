@@ -136,6 +136,7 @@ const HomePage = () => {
       </div>
       <div className={` ${bookSelected ? 'show' : ''} book-drawer`}>
         <BookDetailDrawer
+          bookId={selectedBookId}
           isDrawerOpen={bookSelected}
           closeDrawer={closeDrawer}
           bookName={selectedBookName}

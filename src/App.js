@@ -8,6 +8,8 @@ import setCurrentUser from './redux/user/userActions';
 import LogInSignUpPage from './pages/LogIn-SignUp/LogInSignUpPage';
 import HomePage from './pages/HomePage/HomePage';
 import './App.css';
+import BookCard from './components/book-card/BookCard';
+import BookDetailDrawer from './components/book-detail-drawer/BookDetailDrawer';
 
 const LogInSignUpWithSpinner = WithSpinner(LogInSignUpPage);
 const HomeWithSpinner = WithSpinner(HomePage);
