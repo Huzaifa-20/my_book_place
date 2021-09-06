@@ -10,8 +10,12 @@
   align-items: center;
   box-shadow: 5px 10px 8px #888888;
 
-  @include media('<=715px') {
-    padding: 3rem 2.5rem;
+  @include media('<=640px') {
+    padding: 1.5rem 0;
+  }
+
+  @include media('>640px', '<=1010px') {
+    padding: 1.5rem 2.5rem;
   }
 
   .card-heading {
@@ -21,17 +25,26 @@
     letter-spacing: 0.05rem;
     font-size: 2.5rem;
 
-    @include media('<=715px') {
+    @include media('<=1010px') {
       font-size: 1.5rem;
     }
   }
 
   .log-in-form {
     width: 100%;
+
+    @include media('<=640px') {
+      width: 100%;
+      padding: 0 20px;
+    }
   }
 
   p {
     color: white;
     margin: 2rem 0;
+
+    @include media('<=1010px') {
+      margin: 1.2rem 0;
+    }
   }
 }
