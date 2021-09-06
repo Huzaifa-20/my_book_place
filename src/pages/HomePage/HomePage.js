@@ -15,11 +15,17 @@ import './HomePageStyle.scss';
 
 const HomePage = () => {
   const [bookSelected, setBookSelected] = useState(false);
-
+  const [selectedBookId, setSelectedBookId] = useState('');
+  const [selectedBookName, setSelectedBookName] = useState('');
+  const [selectedBookGenre, setSelectedBookGenre] = useState('');
+  const [selectedBookAuthor, setSelectedBookAuthor] = useState('');
+  const [booksByAuthor, setBooksByAuthor] = useState([]);
   const dispatch = useDispatch();
 
   const userBooks = useSelector((state) => state.books.userBooks);
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  const [booksMap, setBooksMap] = useState(null);
 
   useEffect(() => {
     const updateUserBooks = (books) => dispatch(setUserBooks(books));
@@ -29,12 +35,13 @@ const HomePage = () => {
     const booksCollectionRef = firestore.collection('books');
 
     unsubAllBooksSnapshot = booksCollectionRef.onSnapshot(async (snapshot) => {
-      const booksMap = convertBooksSnapshotToMap(snapshot);
-      updateAllBooks(booksMap);
+      const tempBooksArray = convertBooksSnapshotToMap(snapshot);
+      setBooksMap(tempBooksArray);
+      updateAllBooks(tempBooksArray);
 
-      if (currentUser.books) {
+      if (currentUser.books && tempBooksArray) {
         const arr = [];
-        booksMap.map((book) => {
+        tempBooksArray.map((book) => {
           if (currentUser && currentUser.books.includes(book.id)) {
             arr.push(book);
           }
@@ -48,11 +55,36 @@ const HomePage = () => {
     };
   }, [currentUser]);
 
-  const bookSelectHandler = () => {
-    setBookSelected(!bookSelected);
+  const bookSelectHandler = (id) => {
+    if (selectedBookId === id) {
+      setSelectedBookId('');
+      setBookSelected(false);
+    } else {
+      setSelectedBookId(id);
+
+      setBooksByAuthor([]);
+      for (let i = 0; i < userBooks.length; i++) {
+        if (userBooks[i].id === id) {
+          setSelectedBookName(userBooks[i].name);
+          setSelectedBookGenre(userBooks[i].genre);
+          setSelectedBookAuthor(userBooks[i].author);
+
+          let tempBookNames = [userBooks[i].name];
+          for (let j = 0; j < userBooks.length; j++) {
+            if (userBooks[j].author === userBooks[i].author && j !== i) {
+              tempBookNames = [...tempBookNames, userBooks[j].name];
+            }
+          }
+          setBooksByAuthor(tempBookNames);
+        }
+      }
+
+      setBookSelected(true);
+    }
   };
 
   const closeDrawer = () => {
+    setSelectedBookId('');
     setBookSelected(false);
   };
 
@@ -62,7 +94,17 @@ const HomePage = () => {
         <div className="upper-half">
           <div className="header-bar">
             <div className="user-title-container">
-              <h1 className="user-title">Ninjas Reading List</h1>
+              {currentUser
+              && currentUser.displayName
+              && currentUser.displayName.length > 0 ? (
+                <h1 className="user-title">
+                  {currentUser.displayName}
+                  {' '}
+                  <span>’s Reading List</span>
+                </h1>
+                ) : (
+                  ''
+                )}
             </div>
             <div className="log-out-container">
               <FiLogOut
@@ -79,8 +121,10 @@ const HomePage = () => {
               <div className="book-button">
                 <CustomButton
                   key={id}
-                  selected={bookSelected}
-                  onClick={bookSelectHandler}
+                  selected={selectedBookId === id}
+                  onClick={() => {
+                    bookSelectHandler(id);
+                  }}
                 >
                   {name}
                 </CustomButton>
@@ -88,12 +132,16 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <BookCard />
+        <BookCard allBooks={booksMap} />
       </div>
       <div className={` ${bookSelected ? 'show' : ''} book-drawer`}>
         <BookDetailDrawer
           isDrawerOpen={bookSelected}
           closeDrawer={closeDrawer}
+          bookName={selectedBookName}
+          bookGenre={selectedBookGenre}
+          bookAuthor={selectedBookAuthor}
+          allBooks={booksByAuthor}
         />
       </div>
     </div>

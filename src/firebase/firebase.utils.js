@@ -17,8 +17,6 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-export const createBookDocument = async () => {};
-
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -64,19 +62,33 @@ export const convertBooksSnapshotToMap = (books) => {
   return transformedBooks;
 };
 
-export const addBooksToFirestore = async (userId, bookToAdd) => {
+export const addBooksToFirestore = async (userId, { name, author, genre }) => {
   const booksCollectionRef = firestore.collection('books');
 
   const newBookDocRef = booksCollectionRef.doc();
-  await newBookDocRef.set({ id: newBookDocRef.id, ...bookToAdd });
+  await newBookDocRef.set({
+    id: newBookDocRef.id,
+    name,
+    author,
+    genre,
+  });
 
-  await firestore
-    .doc(`users/${userId}`)
-    .update({
-      books: firebase.firestore.FieldValue.arrayUnion(newBookDocRef.id),
-    });
+  await firestore.doc(`users/${userId}`).update({
+    books: firebase.firestore.FieldValue.arrayUnion(newBookDocRef.id),
+  });
 
   // CHECK IF AUTHOR ALSO NEEDS TO BE ADDED TO FIRESTORE//
+  // if (newAuthor) {
+  //   const authorsCollectionRef = firestore.collection('authors');
+
+  //   const newAuthorDocRef = authorsCollectionRef.doc();
+  //   await newAuthorDocRef.set({
+  //     id: newAuthorDocRef.id, name: author, books: [newBookDocRef.id],
+  //   });
+  // }
+  // else {
+
+  // }
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();

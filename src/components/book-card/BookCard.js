@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { addBooksToFirestore } from '../../firebase/firebase.utils';
 
 import './BookCardStyle.scss';
 
-const BookCard = () => {
+const BookCard = ({ allBooks }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const [bookName, setBookName] = useState('');
   const [bookGenre, setBookGenre] = useState('');
   const [bookAuthor, setBookAuthor] = useState('');
+  const [authorOptions, setAuthorOptions] = useState(null);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -35,12 +36,25 @@ const BookCard = () => {
     setBookName('');
     setBookGenre('');
     setBookAuthor('');
+
     addBooksToFirestore(currentUser.id, {
       name: bookName,
       genre: bookGenre,
       author: bookAuthor,
     });
+
+    if (!allBooks.includes(bookAuthor)) {
+      setAuthorOptions({ ...authorOptions }, [bookAuthor]);
+    }
   };
+
+  useEffect(() => {
+    if (allBooks) {
+      setAuthorOptions([...new Set(allBooks.map((data) => data.author))]);
+      console.log(authorOptions);
+      console.log(allBooks);
+    }
+  }, [allBooks, currentUser]);
 
   return (
     <div className="book-card">
@@ -84,10 +98,11 @@ const BookCard = () => {
               <option disabled selected>
                 -Select Existing Author-
               </option>
-              <option value="Volvo">Volvo</option>
-              <option value="Saab">Saab</option>
-              <option value="Fiat">Fiat</option>
-              <option value="Audi">Audi</option>
+              {authorOptions && authorOptions.length > 0
+                ? authorOptions.map((author) => (
+                  <option value={author}>{author}</option>
+                ))
+                : ''}
             </select>
           </div>
         </div>

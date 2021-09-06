@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import '../../styles/Colors.scss';
 
 export const SpinnerOverlay = styled.div`
   height: 60vh;
@@ -12,7 +13,7 @@ export const SpinnerContainer = styled.div`
   display: inline-block;
   width: 50px;
   height: 50px;
-  border: 3px solid rgba(195, 195, 195, 0.6);
+  border: 3px solid #af4159;
   border-radius: 50%;
   border-top-color: #636767;
   animation: spin 1s ease-in-out infinite;
