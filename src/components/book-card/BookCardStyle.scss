@@ -13,7 +13,13 @@
   border-radius: 0 1.3rem 0 0;
   box-shadow: 10px -5px 8px #888888;
 
-  @include media('>phone', '<=715px') {
+  @include media('<=400px') {
+    border-radius: 0;
+    height: 10rem;
+    width: 100vw;
+  }
+
+  @include media('>400px', '<=715px') {
     height: 12rem;
     width: 25rem;
   }

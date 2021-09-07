@@ -9,7 +9,11 @@
   height: 100vh;
   width: 30vw;
 
-  @include media('>phone', '<=715px') {
+  @include media('<=400px') {
+    padding: 1.5rem 0.5rem;
+  }
+
+  @include media('>400px', '<=715px') {
     padding: 1.5rem 1rem;
   }
 
@@ -31,7 +35,7 @@
         height: 1.5rem;
         width: 1.5rem;
 
-        @include media('>phone', '<=715px') {
+        @include media('>400px', '<=715px') {
           height: 1.5rem;
           width: 1.5rem;
           margin-right: 0.8rem;
@@ -71,7 +75,11 @@
   }
 
   .book-title {
-    @include media('>phone', '<=715px') {
+    @include media('<=400px') {
+      font-size: 1.2rem;
+    }
+
+    @include media('>400px', '<=715px') {
       font-size: 1.5rem;
     }
   }
@@ -79,7 +87,11 @@
   .book-genre {
     margin-top: 2rem;
 
-    @include media('>phone', '<=715px') {
+    @include media('<=400px') {
+      font-size: 0.9rem;
+    }
+
+    @include media('>400px', '<=715px') {
       font-size: 1rem;
     }
   }
@@ -88,18 +100,35 @@
     margin-top: 2rem;
     margin-bottom: 2rem;
 
-    @include media('>phone', '<=715px') {
+    @include media('<=400px') {
+      font-size: 0.9rem;
+    }
+
+    @include media('>400px', '<=715px') {
       font-size: 1rem;
     }
   }
 
+  .all-books-heading {
+    @include media('<=400px') {
+      font-size: 0.8rem;
+    }
+
+    @include media('>400px', '<=715px') {
+      font-size: 0.9rem;
+    }
+  }
   .all-books {
     margin-top: 2rem;
 
     li {
       margin-top: 1rem;
 
-      @include media('>phone', '<=715px') {
+      @include media('<=400px') {
+        font-size: 0.8rem;
+      }
+
+      @include media('>400px', '<=715px') {
         font-size: 0.9rem;
       }
     }

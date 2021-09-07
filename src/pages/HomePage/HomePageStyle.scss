@@ -7,6 +7,11 @@
   justify-content: space-between;
   background: $colorSecondary;
 
+  @include media('<=715px') {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+  }
+
   .main-container {
     height: 100vh;
     width: 100vw;
@@ -14,7 +19,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // padding: 0 1rem;
+
+    @include media('<=715px') {
+      scroll-behavior: smooth;
+      overflow-y: scroll;
+    }
 
     .header-bar {
       padding-top: 0.5rem;
@@ -31,6 +40,7 @@
 
         @include media('<=715px') {
           font-size: 1.5rem;
+          margin-left: 20px;
         }
       }
 
@@ -77,6 +87,13 @@
       display: flex;
       flex-wrap: wrap;
       padding: 1rem;
+
+      @include media('<=715px') {
+        scroll-behavior: smooth;
+        overflow-y: scroll;
+        padding: 0.5rem;
+        // white-space: nowrap;
+      }
 
       .book-button {
         margin: 1rem 0;

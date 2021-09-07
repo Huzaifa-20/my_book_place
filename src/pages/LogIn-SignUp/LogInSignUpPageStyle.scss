@@ -33,12 +33,16 @@
     align-items: center;
 
     .log-in-btn-container {
-      transform: translateX(250px);
+      transform: translateX(200px);
       transition: all 0.5s;
 
       &.move-btn-left {
-        @include media('<=1010px') {
-          transform: translate(250px, 290px);
+        @include media('<=390px') {
+          transform: translate(170px, 230px);
+        }
+
+        @include media('>390px', '<=1010px') {
+          transform: translate(200px, 290px);
         }
 
         @include media('>1010px') {
@@ -48,12 +52,16 @@
     }
 
     .sign-up-btn-container {
-      transform: translateX(-250px);
+      transform: translateX(-200px);
       transition: all 0.5s;
 
       &.move-btn-right {
-        @include media('<=1010px') {
-          transform: translate(-250px, 290px);
+        @include media('<=390px') {
+          transform: translate(-170px, 230px);
+        }
+
+        @include media('>390px', '<=1010px') {
+          transform: translate(-200px, 290px);
         }
 
         @include media('>1010px') {
@@ -67,9 +75,6 @@
       align-items: center;
       transition: all 0.5s;
 
-      @include media('>1010px') {
-        transform: translateY(-50px);
-      }
       .logInContainer {
         visibility: hidden;
         opacity: 0;

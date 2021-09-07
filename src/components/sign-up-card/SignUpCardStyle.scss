@@ -11,10 +11,11 @@
   box-shadow: 5px 10px 8px #888888;
 
   @include media('<=640px') {
-    padding: 0.8rem 0.5rem;
+    padding: 1rem 0.8rem;
   }
 
   @include media('>640px', '<=1010px') {
+    margin-bottom: 30px;
     padding: 1rem 2.5rem;
   }
 

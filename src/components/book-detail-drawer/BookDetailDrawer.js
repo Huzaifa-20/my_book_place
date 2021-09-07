@@ -41,7 +41,7 @@ const BookDetailDrawer = ({
       <h1 className="book-title">{bookName}</h1>
       <h3 className="book-genre">{bookGenre}</h3>
       <h3 className="book-author">{bookAuthor}</h3>
-      <h3>All books by this author</h3>
+      <h3 className="all-books-heading">All books by this author</h3>
       <ul className="all-books">
         {allBooks && allBooks.length > 0
           ? allBooks.map((book) => <li>{book}</li>)

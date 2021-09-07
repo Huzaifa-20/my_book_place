@@ -33,7 +33,14 @@
     margin: 0 2.3rem;
   }
 
-  @include media('<=715px') {
+  @include media('<=410px') {
+    min-width: 100px;
+    padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+    font-size: 0.95rem;
+    margin: 0 50px;
+  }
+
+  @include media('>410px', '<=715px') {
     min-width: 125px;
     padding: 0.4rem 1rem 0.4rem 1rem;
     font-size: 1.1rem;

@@ -51,8 +51,6 @@ const BookCard = ({ allBooks }) => {
   useEffect(() => {
     if (allBooks) {
       setAuthorOptions([...new Set(allBooks.map((data) => data.author))]);
-      console.log(authorOptions);
-      console.log(allBooks);
     }
   }, [allBooks, currentUser]);
 
