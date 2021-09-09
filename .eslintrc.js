@@ -13,8 +13,11 @@ module.exports = {
     'consistent-return': 'off',
     'no-return-await': 'off',
     'no-plusplus': 'off',
-    // 'no-nested-ternary': 'off',
-    // 'max-len': 'off',
-    // You can override any rules you want
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'no-param-reassign': 'off',
+    'no-confusing-arrow': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'react/jsx-curly-newline': 'off',
   },
 };

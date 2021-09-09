@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import WithSpinner from './components/with-spinner/WithSpinner';
 import setCurrentUser from './redux/user/userActions';
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
-
 import LogInSignUpPage from './pages/LogIn-SignUp/LogInSignUpPage';
 import HomePage from './pages/HomePage/HomePage';
 import './App.css';
@@ -18,7 +18,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const updateCurrentUser = (user) => dispatch(setCurrentUser(user));
@@ -42,8 +41,19 @@ function App() {
   return (
     <div>
       <Switch>
-        <PrivateRoute path="/home" component={HomePage} />
-        <PublicRoute exact path="/" component={LogInSignUpPage} />
+        <PrivateRoute
+          path="/home"
+          component={(props) => (
+            <HomeWithSpinner isLoading={loading} {...props} />
+          )}
+        />
+        <PublicRoute
+          exact
+          path="/"
+          component={(props) => (
+            <LogInSignUpWithSpinner isLoading={loading} {...props} />
+          )}
+        />
       </Switch>
     </div>
   );
