@@ -21,7 +21,7 @@ const SignUpCard = () => {
       return;
     }
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const { user } = email && password
         ? await auth
           .createUserWithEmailAndPassword(email, password)
@@ -29,17 +29,17 @@ const SignUpCard = () => {
             alert(error);
           })
         : alert('Fill all fields');
-      // setIsLoading(false);
 
       createUserProfileDocument(user, { displayName });
-
-      setDisplayName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
     } catch (error) {
       console.error(error);
     }
+
+    setDisplayName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setIsLoading(false);
   };
 
   const handleChange = (e) => {
@@ -53,7 +53,7 @@ const SignUpCard = () => {
   return (
     <div className="sign-up">
       <h1 className="card-heading">Sign Up</h1>
-      {/* <ClipLoader color="#ffffff" loading={isLoading} /> */}
+      <ClipLoader color="#ffffff" loading={isLoading} />
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -61,6 +61,7 @@ const SignUpCard = () => {
           value={displayName}
           handleChange={handleChange}
           label="Display Name"
+          disableInput={isLoading}
           required
         />
         <FormInput
@@ -69,6 +70,7 @@ const SignUpCard = () => {
           value={email}
           handleChange={handleChange}
           label="Email"
+          disableInput={isLoading}
           required
         />
         <FormInput
@@ -77,6 +79,7 @@ const SignUpCard = () => {
           value={password}
           handleChange={handleChange}
           label="Pasword"
+          disableInput={isLoading}
           required
         />
         <FormInput
@@ -85,10 +88,13 @@ const SignUpCard = () => {
           value={confirmPassword}
           handleChange={handleChange}
           label="Confirm Pasword"
+          disableInput={isLoading}
           required
         />
       </form>
-      <CustomButton onClick={handleSubmit}>Sign Up</CustomButton>
+      <CustomButton disableBtn={isLoading} onClick={handleSubmit}>
+        Sign Up
+      </CustomButton>
     </div>
   );
 };
