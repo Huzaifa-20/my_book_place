@@ -10,7 +10,8 @@ const BookCard = ({ allBooks }) => {
 
   const [bookName, setBookName] = useState('');
   const [bookGenre, setBookGenre] = useState('');
-  const [bookAuthor, setBookAuthor] = useState('');
+  const [newBookAuthor, setNewBookAuthor] = useState('');
+  const [oldBookAuthor, setOldBookAuthor] = useState('');
   const [authorOptions, setAuthorOptions] = useState(null);
 
   const handleChange = (e) => {
@@ -19,13 +20,19 @@ const BookCard = ({ allBooks }) => {
       setBookName(value);
     } else if (name === 'bookGenre') {
       setBookGenre(value);
-    } else {
-      setBookAuthor(value);
+    } else if (name === 'newBookAuthor') {
+      setNewBookAuthor(value);
+    } else if (name === 'oldBookAuthor') {
+      setOldBookAuthor(value);
     }
   };
 
   const emptyFields = () => {
-    if (bookName === '' || bookGenre === '' || bookAuthor === '') return true;
+    if (
+      bookName === ''
+      || bookGenre === ''
+      || (newBookAuthor === '' && oldBookAuthor === '')
+    ) return true;
     return false;
   };
 
@@ -36,16 +43,17 @@ const BookCard = ({ allBooks }) => {
 
     setBookName('');
     setBookGenre('');
-    setBookAuthor('');
+    setNewBookAuthor('');
+    setOldBookAuthor('');
 
     addBooksToFirestore(currentUser.id, {
       name: bookName,
       genre: bookGenre,
-      author: bookAuthor,
+      author: newBookAuthor || oldBookAuthor,
     });
 
-    if (!allBooks.includes(bookAuthor)) {
-      setAuthorOptions({ ...authorOptions }, [bookAuthor]);
+    if (!allBooks.includes(newBookAuthor || oldBookAuthor)) {
+      setAuthorOptions({ ...authorOptions }, [newBookAuthor || oldBookAuthor]);
     }
   };
 
@@ -84,15 +92,16 @@ const BookCard = ({ allBooks }) => {
           <div className="author-field">
             <input
               type="text"
-              name="authorName"
-              value={bookAuthor}
+              name="newBookAuthor"
+              value={newBookAuthor}
               onChange={handleChange}
               placeholder="-Add New Author-"
             />
 
             <select
               className="select-author"
-              name="author"
+              name="oldBookAuthor"
+              value={oldBookAuthor}
               onChange={handleChange}
             >
               <option selected>-Select Existing Author-</option>
