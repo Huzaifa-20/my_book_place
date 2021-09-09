@@ -11,7 +11,7 @@
   background: white;
   padding: 1rem 2rem;
   border-radius: 0 1.3rem 0 0;
-  box-shadow: 10px -5px 8px #888888;
+  box-shadow: 1.5px -1.5px 6px #888888;
 
   @include media('<=400px') {
     border-radius: 0;
