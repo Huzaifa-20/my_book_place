@@ -1,32 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   firestore,
   auth,
   convertBooksSnapshotToMap,
 } from '../../firebase/firebase.utils';
 import { setUserBooks, setAllBooks } from '../../redux/book/bookActions';
-
 import BookDetailDrawer from '../../components/book-detail-drawer/BookDetailDrawer';
 import BookCard from '../../components/book-card/BookCard';
 import CustomButton from '../../components/custom-button/CustomButton';
 import './HomePageStyle.scss';
 
 const HomePage = () => {
+  /**
+   * All state variables required by component
+   */
   const [bookSelected, setBookSelected] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState('');
   const [selectedBookName, setSelectedBookName] = useState('');
   const [selectedBookGenre, setSelectedBookGenre] = useState('');
   const [selectedBookAuthor, setSelectedBookAuthor] = useState('');
   const [booksByAuthor, setBooksByAuthor] = useState([]);
+  const [booksMap, setBooksMap] = useState(null);
+
   const dispatch = useDispatch();
 
+  /**
+   * State of userBooks and allBooks as stored in Redux Store
+   */
   const userBooks = useSelector((state) => state.books.userBooks);
   const currentUser = useSelector((state) => state.user.currentUser);
 
-  const [booksMap, setBooksMap] = useState(null);
-
+  /**
+   * Calling async functions written in firebase.utils
+   * to retrieve books stored in database. Then storing
+   * the data in redux store
+   */
   useEffect(() => {
     const updateUserBooks = (books) => dispatch(setUserBooks(books));
     const updateAllBooks = (books) => dispatch(setAllBooks(books));
@@ -55,34 +66,36 @@ const HomePage = () => {
     };
   }, [currentUser]);
 
-  const bookSelectHandler = (id) => {
+  /**
+   * Sets the state for currentbook that is selected and
+   * creates an array of all the books that are written
+   * by the same author as of the selected book
+   *
+   * @param {string} id
+   * @param {string} name
+   * @param {string} genre
+   * @param {string} author
+   */
+  const bookSelectHandler = (id, name, genre, author) => {
     if (selectedBookId === id) {
       setSelectedBookId('');
       setBookSelected(false);
     } else {
       setSelectedBookId(id);
-
-      setBooksByAuthor([]);
-      for (let i = 0; i < userBooks.length; i++) {
-        if (userBooks[i].id === id) {
-          setSelectedBookName(userBooks[i].name);
-          setSelectedBookGenre(userBooks[i].genre);
-          setSelectedBookAuthor(userBooks[i].author);
-
-          let tempBookNames = [userBooks[i].name];
-          for (let j = 0; j < userBooks.length; j++) {
-            if (userBooks[j].author === userBooks[i].author && j !== i) {
-              tempBookNames = [...tempBookNames, userBooks[j].name];
-            }
-          }
-          setBooksByAuthor(tempBookNames);
-        }
-      }
-
+      setSelectedBookName(name);
+      setSelectedBookGenre(genre);
+      setSelectedBookAuthor(author);
+      setBooksByAuthor(
+        userBooks.filter((book) => book.author === author).map((b) => b.name),
+      );
       setBookSelected(true);
     }
   };
 
+  /**
+   * Function to close the side drawer having
+   * details of the book selected
+   */
   const closeDrawer = () => {
     setSelectedBookId('');
     setBookSelected(false);
@@ -94,17 +107,15 @@ const HomePage = () => {
         <div className="upper-half">
           <div className="header-bar">
             <div className="user-title-container">
-              {currentUser
-              && currentUser.displayName
-              && currentUser.displayName.length > 0 ? (
+              {currentUser?.displayName?.length > 0 ? (
                 <h1 className="user-title">
                   {currentUser.displayName}
                   {' '}
                   <span>’s Reading List</span>
                 </h1>
-                ) : (
-                  ''
-                )}
+              ) : (
+                ''
+              )}
             </div>
             <div className="log-out-container">
               <FiLogOut
@@ -124,13 +135,15 @@ const HomePage = () => {
             </div>
           </div>
           <div className="books-container">
-            {userBooks.map(({ id, name }) => (
+            {userBooks.map(({
+              id, name, genre, author,
+            }) => (
               <div className="book-button">
                 <CustomButton
                   key={id}
                   selected={selectedBookId === id}
                   onClick={() => {
-                    bookSelectHandler(id);
+                    bookSelectHandler(id, name, genre, author);
                   }}
                 >
                   {name}

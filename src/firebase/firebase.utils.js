@@ -17,6 +17,13 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+/**
+ * Function used to create a new user in firestore
+ *
+ * @param {firebase.auth} userAuth
+ * @param {*} additionalData
+ * @returns A reference to relavent position inside firestore
+ */
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -46,6 +53,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+/**
+ * Function to convert snapshot to array of book object
+ *
+ * @returns an array of book objects
+ */
 export const convertBooksSnapshotToMap = (books) => {
   const transformedBooks = books.docs.map((doc) => {
     const {
@@ -62,6 +74,13 @@ export const convertBooksSnapshotToMap = (books) => {
   return transformedBooks;
 };
 
+/**
+ * Adds book to Book collection also to books array inside the current user's
+ * document on firestore
+ *
+ * @param {string} userId The authentication ID of current user
+ * @param {object} A book abject that holds information of single book
+ */
 export const addBooksToFirestore = async (userId, { name, author, genre }) => {
   const booksCollectionRef = firestore.collection('books');
 
@@ -78,6 +97,13 @@ export const addBooksToFirestore = async (userId, { name, author, genre }) => {
   });
 };
 
+/**
+ * Deletes given book from Books collection and also from
+ * books array inside User's document
+ *
+ * @param {string} bookId UniqueID of a book
+ * @param {string} userId The authentication ID of current user
+ */
 export const deleteBookFromFirestore = async (bookId, userId) => {
   console.log(`Deleting: ${bookId}`);
   firestore

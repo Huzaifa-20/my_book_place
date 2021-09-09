@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 import './SignUpCardStyle.scss';
 
 const SignUpCard = () => {
+  /**
+   * State variables required in this component
+   */
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * Function that signs up a new user and
+   * shows a loader while user is being created
+   *
+   * @param {Event} e
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,6 +51,12 @@ const SignUpCard = () => {
     setIsLoading(false);
   };
 
+  /**
+   * Function that changes the values of the input fields
+   * as we type in them
+   *
+   * @param {Event} e
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'displayName') setDisplayName(value);

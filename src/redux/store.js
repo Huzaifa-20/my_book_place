@@ -3,6 +3,10 @@ import logger from 'redux-logger';
 
 import RootReducer from './RootReducer';
 
+/**
+ * Creating a redux store with logger middle ware
+ */
+
 const middleware = [];
 
 if (process.env.NODE_ENV === 'development') {

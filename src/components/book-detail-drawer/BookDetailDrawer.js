@@ -1,8 +1,7 @@
-import React from 'react';
 import { FaTimesCircle, FaTrash } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { deleteBookFromFirestore } from '../../firebase/firebase.utils';
 
+import { deleteBookFromFirestore } from '../../firebase/firebase.utils';
 import './BookDetailDrawerStyle.scss';
 
 const BookDetailDrawer = ({
@@ -16,6 +15,10 @@ const BookDetailDrawer = ({
 }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
+  /**
+   * A function that calls an async function in
+   * firebase.utils to delete a selected book
+   */
   const deleteBookHandler = () => {
     deleteBookFromFirestore(bookId, currentUser.id);
     closeDrawer();
@@ -43,9 +46,7 @@ const BookDetailDrawer = ({
       <h3 className="book-author">{bookAuthor}</h3>
       <h3 className="all-books-heading">All books by this author</h3>
       <ul className="all-books">
-        {allBooks && allBooks.length > 0
-          ? allBooks.map((book) => <li>{book}</li>)
-          : ''}
+        {allBooks?.length > 0 ? allBooks.map((book) => <li>{book}</li>) : ''}
       </ul>
     </div>
   ) : null;

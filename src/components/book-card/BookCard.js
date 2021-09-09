@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { addBooksToFirestore } from '../../firebase/firebase.utils';
 
+import { addBooksToFirestore } from '../../firebase/firebase.utils';
 import './BookCardStyle.scss';
 
 const BookCard = ({ allBooks }) => {
@@ -14,19 +14,29 @@ const BookCard = ({ allBooks }) => {
   const [oldBookAuthor, setOldBookAuthor] = useState('');
   const [authorOptions, setAuthorOptions] = useState(null);
 
+  /**
+   * Function to update values on input fields as we type them
+   *
+   * @param {Event} e
+   */
   const handleChange = (e) => {
     const { value, name } = e.target;
-    if (name === 'bookName') {
-      setBookName(value);
-    } else if (name === 'bookGenre') {
-      setBookGenre(value);
-    } else if (name === 'newBookAuthor') {
-      setNewBookAuthor(value);
-    } else if (name === 'oldBookAuthor') {
-      setOldBookAuthor(value);
-    }
+
+    name === 'bookName'
+      ? setBookName(value)
+      : name === 'bookGenre'
+        ? setBookGenre(value)
+        : name === 'newBookAuthor'
+          ? setNewBookAuthor(value)
+          : setOldBookAuthor(value);
   };
 
+  /**
+   * Function that tells if all input fields are
+   * filled or not
+   *
+   * @returns Boolean value
+   */
   const emptyFields = () => {
     if (
       bookName === ''
@@ -36,6 +46,13 @@ const BookCard = ({ allBooks }) => {
     return false;
   };
 
+  /**
+   * Function that calls an async function in firestore.utils
+   * to add a new book into firestore
+   *
+   * @param {Event} e
+   * @returns
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,6 +74,10 @@ const BookCard = ({ allBooks }) => {
     }
   };
 
+  /**
+   * Function that sets upp values for 'existing authors'
+   * drop down menu
+   */
   useEffect(() => {
     if (allBooks) {
       setAuthorOptions([...new Set(allBooks.map((data) => data.author))]);
@@ -105,7 +126,7 @@ const BookCard = ({ allBooks }) => {
               onChange={handleChange}
             >
               <option selected>-Select Existing Author-</option>
-              {authorOptions && authorOptions.length > 0
+              {authorOptions?.length > 0
                 ? authorOptions.map((author) => <option>{author}</option>)
                 : ''}
             </select>
