@@ -33,6 +33,19 @@
     margin: 0 2.3rem;
   }
 
+  &.disable {
+    font-weight: normal;
+    background-color: white;
+    color: #888888;
+    border: none;
+    font-size: 0.9rem;
+
+    &:hover {
+      transform: scale(1);
+      font-weight: normal;
+    }
+  }
+
   @include media('<=410px') {
     min-width: 100px;
     padding: 0.4rem 0.6rem 0.4rem 0.6rem;

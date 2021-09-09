@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 import FormInput from '../form-input/FormInput';
@@ -10,6 +11,7 @@ const SignUpCard = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +21,15 @@ const SignUpCard = () => {
       return;
     }
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password,
-      );
+      // setIsLoading(true);
+      const { user } = email && password
+        ? await auth
+          .createUserWithEmailAndPassword(email, password)
+          .catch((error) => {
+            alert(error);
+          })
+        : alert('Fill all fields');
+      // setIsLoading(false);
 
       createUserProfileDocument(user, { displayName });
 
@@ -46,6 +53,7 @@ const SignUpCard = () => {
   return (
     <div className="sign-up">
       <h1 className="card-heading">Sign Up</h1>
+      {/* <ClipLoader color="#ffffff" loading={isLoading} /> */}
       <form className="sign-up-form" onSubmit={handleSubmit}>
         <FormInput
           type="text"
