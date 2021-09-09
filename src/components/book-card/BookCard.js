@@ -31,6 +31,7 @@ const BookCard = ({ allBooks }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (emptyFields()) return;
 
     setBookName('');
@@ -88,18 +89,15 @@ const BookCard = ({ allBooks }) => {
               onChange={handleChange}
               placeholder="-Add New Author-"
             />
+
             <select
               className="select-author"
               name="author"
               onChange={handleChange}
             >
-              <option disabled selected>
-                -Select Existing Author-
-              </option>
+              <option selected>-Select Existing Author-</option>
               {authorOptions && authorOptions.length > 0
-                ? authorOptions.map((author) => (
-                  <option value={author}>{author}</option>
-                ))
+                ? authorOptions.map((author) => <option>{author}</option>)
                 : ''}
             </select>
           </div>
