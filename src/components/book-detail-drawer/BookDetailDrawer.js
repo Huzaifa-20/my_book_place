@@ -26,7 +26,7 @@ const BookDetailDrawer = ({
       <div className="drawer-icons">
         <div className="delete-book">
           <FaTrash className="delete-icon" onClick={deleteBookHandler} />
-          <p className="delete-text">
+          <p className="delete-text" onClick={deleteBookHandler}>
             Delete
             {' '}
             <br />

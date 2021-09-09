@@ -113,7 +113,14 @@ const HomePage = () => {
                   auth.signOut();
                 }}
               />
-              <p className="log-out-text">Log Out</p>
+              <p
+                className="log-out-text"
+                onClick={() => {
+                  auth.signOut();
+                }}
+              >
+                Log Out
+              </p>
             </div>
           </div>
           <div className="books-container">
