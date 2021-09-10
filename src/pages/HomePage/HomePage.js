@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { auth } from '../../firebase/firebase.utils';
 import {
-  firestore,
-  auth,
-  convertBooksSnapshotToMap,
-} from '../../firebase/firebase.utils';
-import { setUserBooks, setAllBooks } from '../../redux/book/bookActions';
+  fetchAllBooksStartAsync,
+  fetchUserBooksStartAsync,
+} from '../../redux/book/bookActions';
 import BookDetailDrawer from '../../components/book-detail-drawer/BookDetailDrawer';
 import BookCard from '../../components/book-card/BookCard';
 import CustomButton from '../../components/custom-button/CustomButton';
@@ -23,48 +22,35 @@ const HomePage = () => {
   const [selectedBookGenre, setSelectedBookGenre] = useState('');
   const [selectedBookAuthor, setSelectedBookAuthor] = useState('');
   const [booksByAuthor, setBooksByAuthor] = useState([]);
-  const [booksMap, setBooksMap] = useState(null);
 
   const dispatch = useDispatch();
+  const fetchAllBooks = () => dispatch(fetchAllBooksStartAsync());
+  const fetchUserBooks = (userId, books) =>
+    dispatch(fetchUserBooksStartAsync(userId, books));
 
   /**
    * State of userBooks and allBooks as stored in Redux Store
    */
   const userBooks = useSelector((state) => state.books.userBooks);
+  const allBooks = useSelector((state) => state.books.allBooks);
   const currentUser = useSelector((state) => state.user.currentUser);
 
   /**
    * Calling async functions written in firebase.utils
-   * to retrieve books stored in database. Then storing
-   * the data in redux store
+   * to retrieve all the books stored in database
    */
   useEffect(() => {
-    const updateUserBooks = (books) => dispatch(setUserBooks(books));
-    const updateAllBooks = (books) => dispatch(setAllBooks(books));
-
-    let unsubAllBooksSnapshot = null;
-    const booksCollectionRef = firestore.collection('books');
-
-    unsubAllBooksSnapshot = booksCollectionRef.onSnapshot(async (snapshot) => {
-      const tempBooksArray = convertBooksSnapshotToMap(snapshot);
-      setBooksMap(tempBooksArray);
-      updateAllBooks(tempBooksArray);
-
-      if (currentUser.books && tempBooksArray) {
-        const arr = [];
-        tempBooksArray.map((book) => {
-          if (currentUser && currentUser.books.includes(book.id)) {
-            arr.push(book);
-          }
-          return arr;
-        });
-        updateUserBooks(arr);
-      }
-    });
-    return () => {
-      unsubAllBooksSnapshot();
-    };
+    fetchAllBooks();
   }, [currentUser]);
+
+  /**
+   * Calling async functions written in firebase.utils
+   * to retrieve the IDs of books our user has stored
+   * and using those IDs to get the complete user's books details
+   */
+  useEffect(() => {
+    fetchUserBooks(currentUser.id, allBooks);
+  }, [allBooks]);
 
   /**
    * Sets the state for currentbook that is selected and
@@ -152,7 +138,7 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <BookCard allBooks={booksMap} />
+        <BookCard allBooks={userBooks} />
       </div>
       <div className={` ${bookSelected ? 'show' : ''} book-drawer`}>
         <BookDetailDrawer

@@ -6,6 +6,8 @@ import bookActionTypes from './bookTypes';
 const initialState = {
   allBooks: [],
   userBooks: [],
+  isFetchingAllBooks: false,
+  isFetchingUserBooks: false,
 };
 
 /**
@@ -18,16 +20,32 @@ const initialState = {
  */
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case bookActionTypes.SET_USER_BOOKS:
+    case bookActionTypes.FETCH_ALL_BOOKS_START:
       return {
         ...state,
-        userBooks: action.payload,
+        isFetchingAllBooks: true,
       };
-    case bookActionTypes.SET_ALL_BOOKS:
+
+    case bookActionTypes.FETCH_ALL_BOOKS_SUCCESS:
       return {
         ...state,
+        isFetchingAllBooks: false,
         allBooks: action.payload,
       };
+
+    case bookActionTypes.FETCH_USER_BOOKS_START:
+      return {
+        ...state,
+        isFetchingUserBooks: true,
+      };
+
+    case bookActionTypes.FETCH_USER_BOOKS_SUCCESS:
+      return {
+        ...state,
+        isFetchingUserBooks: false,
+        userBooks: action.payload,
+      };
+
     default:
       return state;
   }

@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import RootReducer from './RootReducer';
 
@@ -7,7 +8,7 @@ import RootReducer from './RootReducer';
  * Creating a redux store with logger middle ware
  */
 
-const middleware = [];
+const middleware = [thunk];
 
 if (process.env.NODE_ENV === 'development') {
   middleware.push(logger);

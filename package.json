@@ -30,6 +30,7 @@
     "react-spring": "^9.0.0-rc.3",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "scss": "^0.2.4",
     "styled-components": "^5.3.1",
     "web-vitals": "^1.1.2"

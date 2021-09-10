@@ -19,5 +19,7 @@ module.exports = {
     'no-confusing-arrow': 'off',
     'implicit-arrow-linebreak': 'off',
     'react/jsx-curly-newline': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'no-nested-ternary': 'off',
   },
 };

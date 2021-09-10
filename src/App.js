@@ -42,6 +42,7 @@ function App() {
         });
       }
       updateCurrentUser(userAuth);
+
       setLoading(false);
     });
     return () => {
