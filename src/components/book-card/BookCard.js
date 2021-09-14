@@ -16,8 +16,6 @@ const BookCard = ({ allBooks }) => {
 
   /**
    * Function to update values on input fields as we type them
-   *
-   * @param {Event} e
    */
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -34,8 +32,6 @@ const BookCard = ({ allBooks }) => {
   /**
    * Function that tells if all input fields are
    * filled or not
-   *
-   * @returns Boolean value
    */
   const emptyFields = () => {
     if (
@@ -49,9 +45,6 @@ const BookCard = ({ allBooks }) => {
   /**
    * Function that calls an async function in firestore.utils
    * to add a new book into firestore
-   *
-   * @param {Event} e
-   * @returns
    */
   const handleSubmit = async (e) => {
     e.preventDefault();

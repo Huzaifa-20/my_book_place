@@ -1,8 +1,5 @@
 import bookActionTypes from './bookTypes';
 
-/**
- * Initial state of allBooks and userBooks arrays
- */
 const initialState = {
   allBooks: [],
   userBooks: [],
@@ -13,10 +10,6 @@ const initialState = {
 /**
  * Reducer changes state of redux store depending
  * on the action it receives
- *
- * @param {Object} state
- * @param {bookActionTypes} action Tells reducer how to manipulate redux store
- * @returns latest state
  */
 const booksReducer = (state = initialState, action) => {
   switch (action.type) {

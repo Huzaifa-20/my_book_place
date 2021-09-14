@@ -1,6 +1,3 @@
-/**
- * Holds action types as constants
- */
 const bookActionTypes = {
   FETCH_USER_BOOKS_START: 'FETCH_USER_BOOKS_START',
   FETCH_USER_BOOKS_SUCCESS: 'FETCH_USER_BOOKS_SUCCESS',

@@ -6,109 +6,52 @@ import SignUpCard from '../../components/sign-up-card/SignUpCard';
 import './LogInSignUpPageStyle.scss';
 
 const LogInSignUpPage = () => {
-  /**
-   * All state variables required by component
-   */
-  const [logInSelected, setLogInSelected] = useState(false);
-  const [signUpSelected, setSignUpSelected] = useState(false);
-  const [showLogInCard, setShowLogInCard] = useState(false);
-  const [showSignUpCard, setShowSignUpCard] = useState(false);
-
-  /**
-   * Function to toggle the state of the
-   * log-in button
-   */
-  const toggleLogIn = () => {
-    setLogInSelected(!logInSelected);
-    setShowLogInCard(!showLogInCard);
-  };
-
-  /**
-   * Function to toggle the state of the
-   * sign-up button
-   */
-  const toggleSignUp = () => {
-    setSignUpSelected(!signUpSelected);
-    setShowSignUpCard(!showSignUpCard);
-  };
-
-  /**
-   * Function to simultaneously toggle the states
-   * of the sign-up and log-in buttons
-   */
-  const toggleSelections = () => {
-    toggleLogIn();
-    toggleSignUp();
-  };
-
-  /**
-   * Function helps in handling states of the log-in
-   * and sign-up buttons in order to maintain UI
-   *
-   * @param {string} event Tells if log-in or sign-up button was clicked
-   */
-  const clickHandler = (event) => {
-    event === 'LogIn'
-      ? logInSelected && showLogInCard
-        ? toggleLogIn()
-        : signUpSelected
-          ? toggleSelections()
-          : toggleLogIn()
-      : event === 'SignUp'
-        ? signUpSelected && showSignUpCard
-          ? toggleSignUp()
-          : logInSelected
-            ? toggleSelections()
-            : toggleSignUp()
-        : null;
-  };
+  const [buttonActive, setButtonActive] = useState(0);
 
   return (
     <div className="background">
-      <h1
-        className={`${
-          showLogInCard || showSignUpCard ? 'move-heading-top' : ''
-        } heading`}
-      >
+      <h1 className={`${buttonActive !== 0 ? 'move-heading-top' : ''} heading`}>
         My Book Place
       </h1>
       <div className="log-in-sign-up">
         <div
           className={`${
-            showLogInCard || showSignUpCard ? 'move-btn-left' : ''
+            buttonActive !== 0 ? 'move-btn-left' : ''
           } log-in-btn-container`}
         >
           <CustomButton
             onClick={() => {
-              clickHandler('LogIn');
+              buttonActive === 1 ? setButtonActive(0) : setButtonActive(1);
             }}
             type="button"
-            selected={logInSelected}
+            selected={buttonActive === 1}
           >
             Log In
           </CustomButton>
         </div>
 
         <div className="cardContainer">
-          <div className={`${showLogInCard ? 'show' : ''} logInContainer`}>
+          <div className={`${buttonActive === 1 ? 'show' : ''} logInContainer`}>
             <LogInCard />
           </div>
-          <div className={`${showSignUpCard ? 'show' : ''} signUpContainer`}>
+          <div
+            className={`${buttonActive === 2 ? 'show' : ''} signUpContainer`}
+          >
             <SignUpCard />
           </div>
         </div>
 
         <div
           className={`${
-            showLogInCard || showSignUpCard ? 'move-btn-right' : ''
+            buttonActive !== 0 ? 'move-btn-right' : ''
           } sign-up-btn-container`}
         >
           <CustomButton
             onClick={() => {
-              clickHandler('SignUp');
+              buttonActive === 2 ? setButtonActive(0) : setButtonActive(2);
             }}
             type="button"
-            selected={signUpSelected}
+            selected={buttonActive === 2}
           >
             Sign Up
           </CustomButton>

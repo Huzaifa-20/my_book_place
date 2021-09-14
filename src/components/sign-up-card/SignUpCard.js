@@ -7,9 +7,6 @@ import CustomButton from '../custom-button/CustomButton';
 import './SignUpCardStyle.scss';
 
 const SignUpCard = () => {
-  /**
-   * State variables required in this component
-   */
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +16,6 @@ const SignUpCard = () => {
   /**
    * Function that signs up a new user and
    * shows a loader while user is being created
-   *
-   * @param {Event} e
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,8 +49,6 @@ const SignUpCard = () => {
   /**
    * Function that changes the values of the input fields
    * as we type in them
-   *
-   * @param {Event} e
    */
   const handleChange = (e) => {
     const { name, value } = e.target;

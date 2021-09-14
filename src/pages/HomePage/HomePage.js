@@ -13,9 +13,6 @@ import CustomButton from '../../components/custom-button/CustomButton';
 import './HomePageStyle.scss';
 
 const HomePage = () => {
-  /**
-   * All state variables required by component
-   */
   const [bookSelected, setBookSelected] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState('');
   const [selectedBookName, setSelectedBookName] = useState('');
@@ -56,11 +53,6 @@ const HomePage = () => {
    * Sets the state for currentbook that is selected and
    * creates an array of all the books that are written
    * by the same author as of the selected book
-   *
-   * @param {string} id
-   * @param {string} name
-   * @param {string} genre
-   * @param {string} author
    */
   const bookSelectHandler = (id, name, genre, author) => {
     if (selectedBookId === id) {

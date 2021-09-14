@@ -4,9 +4,6 @@ import { useSelector } from 'react-redux';
 /**
  * Checks if currently a user exists. If no, then route
  * to the LogInSignUpPage else route to '/home' route
- *
- * @param {LogInSignUpPage} Component
- * @returns LogInSignUpPage or '/home' path
  */
 function PublicRoute({ component: Component, ...otherProps }) {
   const isAuthenticated = useSelector((state) => state.user.currentUser);

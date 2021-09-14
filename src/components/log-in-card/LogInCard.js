@@ -7,18 +7,12 @@ import CustomButton from '../custom-button/CustomButton';
 import './LogInCardStyle.scss';
 
 const LogInCard = () => {
-  /**
-   * State variables required in this component  and
-   * shows a loader while user is being logged in
-   */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   /**
    * Function that logs in a user
-   *
-   * @param {Event} e
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +38,6 @@ const LogInCard = () => {
   /**
    * Function that changes the values of the input fields
    * as we type in them
-   *
-   * @param {Event} e
    */
   const handleChange = (e) => {
     const { value, name } = e.target;

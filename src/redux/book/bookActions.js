@@ -7,9 +7,6 @@ import {
 
 /**
  * This action sets the user's books in redux store
- *
- * @param {Object[]} books an array of book objects
- * @returns
  */
 export const fetchUserBooksSuccess = (books) => ({
   type: bookActionTypes.FETCH_USER_BOOKS_SUCCESS,
@@ -46,9 +43,6 @@ export const fetchUserBooksStartAsync = (userId, allBooks) => async (dispatch) =
 
 /**
  * This action sets all the books in redux store
- *
- * @param {Object[]} books an array of book objects
- * @returns
  */
 export const fetchAllBooksSuccess = (books) => ({
   type: bookActionTypes.FETCH_ALL_BOOKS_SUCCESS,
